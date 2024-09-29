@@ -33,7 +33,11 @@ class LaborManagerGUI:
     def create_layout(self) -> list[list]:
         return [
             [sg.Text("Select Islands:")],
-            [sg.Column(self.fletcher_islands), sg.Column(self.imbuer_islands), sg.Column(self.blacksmith_islands)],
+            [
+                sg.Column(self.fletcher_islands),
+                sg.Column(self.imbuer_islands),
+                sg.Column(self.blacksmith_islands),
+            ],
             [sg.Button("Start"), sg.Button("Exit")],
         ]
 

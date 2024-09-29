@@ -18,19 +18,27 @@ def worker_processing(labour_number: int) -> None:
     """
     Collect items from labour and check who it is to put correct journal
     """
-
+    worker_counter: int = 0
     click(282, 945)  # collect items from labour
     time.sleep(0.5)
 
     for image_path, coords, message in labours:
         try:
             if pyautogui.locateOnScreen(image_path, confidence=0.9) is not None:
-                print(f'Putted into {message} number {labour_number} on {island_num.get()} island')
+                print(
+                    f"Putted into {message} number {labour_number} on {island_num.get()} island\n"
+                    f"--------------------------------------------------------------------"
+                )
                 click_drags(*coords)
                 break
         except pyautogui.ImageNotFoundException:
-            print(f"Worker number {labour_number}, on island {island_num.get()} not served\n"
-                  f"----------------------------------------------------------------")
+            worker_counter += 1
+            if worker_counter == 3:
+
+                print(
+                    f"Worker number {labour_number}, on island {island_num.get()} not served\n"
+                    f"----------------------------------------------------------------"
+                )
             continue
     time.sleep(0.5)
     click(145, 943)  # accept work
@@ -39,15 +47,20 @@ def worker_processing(labour_number: int) -> None:
 
 def walk_to_labours() -> None:
     images = [
-        "C:\\AO_labour_bot\\images\\torch.png",
-        "C:\\AO_labour_bot\\images\\torcn2.png",
+        "C:\\AO_labour_bot\\images\\day_flag.png",
+        "C:\\AO_labour_bot\\images\\evening_flag.png",
+        "C:\\AO_labour_bot\\images\\night_flag.png",
     ]
+
+    way_counter: int = 0
+
     for image_path in images:
         try:
             """
             Move character from island's start to enter town hall
             """
             if pyautogui.locateOnScreen(image_path, confidence=0.8) is not None:
+                print("Way to labours found")
                 time.sleep(1)
                 click(1920, 0)
                 time.sleep(4.7)
@@ -67,7 +80,9 @@ def walk_to_labours() -> None:
                 time.sleep(20)
                 break
         except pyautogui.ImageNotFoundException:
-            print("Way to labours not found")
+            way_counter += 1
+            if way_counter == 3:
+                print("Way to labours not found")
             continue
 
 

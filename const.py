@@ -71,8 +71,8 @@ labours = [
     (
         "C:\\AO_labour_bot\\images\\blacksmith_labour.png",
         (1709, 616, 127, 699),
-        "BlackSmith"
-     ),
+        "BlackSmith",
+    ),
 ]
 
 labour_coordinates = [
