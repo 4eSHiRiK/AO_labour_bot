@@ -19,7 +19,7 @@ def worker_processing(labour_number: int) -> None:
     Collect items from labour and check who it is to put correct journal
     """
     worker_counter: int = 0
-    click(282, 945)  # collect items from labour
+    click(295, 849)  # collect items from labour
     time.sleep(0.5)
 
     for image_path, coords, message in labours:
@@ -41,49 +41,32 @@ def worker_processing(labour_number: int) -> None:
                 )
             continue
     time.sleep(0.5)
-    click(145, 943)  # accept work
+    click(122, 869)  # accept work
     time.sleep(0.2)
 
 
 def walk_to_labours() -> None:
-    images = [
-        "C:\\AO_labour_bot\\images\\day_flag.png",
-        "C:\\AO_labour_bot\\images\\evening_flag.png",
-        "C:\\AO_labour_bot\\images\\night_flag.png",
-    ]
+    """
+    Move character from island's start to enter town hall
+    """
 
-    way_counter: int = 0
-
-    for image_path in images:
-        try:
-            """
-            Move character from island's start to enter town hall
-            """
-            if pyautogui.locateOnScreen(image_path, confidence=0.8) is not None:
-                print("Way to labours found")
-                time.sleep(1)
-                click(1920, 0)
-                time.sleep(4.7)
-                click(1320, 0)
-                time.sleep(1.9)
-                click(1060, 305)
-                time.sleep(1.9)
-                """
-                Worker_processing
-                """
-                for labour_number, coords in enumerate(labour_coordinates, start=1):
-                    click(*coords)
-                    time.sleep(1)
-                    worker_processing(labour_number)
-                    time.sleep(1)
-                pyautogui.press("r")
-                time.sleep(20)
-                break
-        except pyautogui.ImageNotFoundException:
-            way_counter += 1
-            if way_counter == 3:
-                print("Way to labours not found")
-            continue
+    time.sleep(1)
+    click(1920, 0)
+    time.sleep(4.7)
+    click(1320, 0)
+    time.sleep(1.9)
+    click(1060, 305)
+    time.sleep(1.9)
+    """
+    Worker_processing
+    """
+    for labour_number, coords in enumerate(labour_coordinates, start=1):
+        click(*coords)
+        time.sleep(1)
+        worker_processing(labour_number)
+        time.sleep(1)
+    pyautogui.press("r")
+    time.sleep(20)
 
 
 def picking_journals(images: list[str]) -> None:
@@ -99,6 +82,7 @@ def picking_journals(images: list[str]) -> None:
                 click_drags(*coords)
                 break
         except pyautogui.ImageNotFoundException:
+            print("Not found")
             continue
     print("Load ended")
 
@@ -116,22 +100,35 @@ def load_from_morgana_chest() -> None:
     time.sleep(20)
 
 
+def load_from_morgana_chest_by_coords() -> None:
+    click(1153, 278)
+    time.sleep(2)
+    click_drags(81, 317, 1593, 540)
+    time.sleep(1)
+    click_drags(164, 314, 1672, 544)
+    time.sleep(1)
+    click_drags(242, 318, 1753, 540)
+    time.sleep(2)
+    pyautogui.press("r")  # return to city
+    time.sleep(20)
+
+
 def put_items_to_chest() -> None:
     time.sleep(2)
     print("Drop items")
     click(1105, 636)  # click on resource's morgana chest
     time.sleep(2)
-    click_drags(586, 385, 583, 579)  # scroll down chest inventory
+    click_drags(468, 473, 465, 711)  # scroll down chest inventory
     time.sleep(1)
     for (
         coords
     ) in inventory_coords:  # transfer items from character's inventory to chest's
         click_drags(*coords)
         time.sleep(0.5)
-    click(425, 906)  # click stack
+    click(429, 937)  # click stack
     time.sleep(0.1)
-    click(539, 906)  # click sort
-    time.sleep(15)
+    click(335, 943)  # click sort
+    time.sleep(5)
     pyautogui.press("r")
     time.sleep(20)
 
@@ -144,15 +141,15 @@ def travel_to_island() -> None:
 
     click(1607, 735)  # go to traveler
     time.sleep(2)
-    click(328, 234)  # click on island
+    click(240, 297)  # click on island
     time.sleep(0.5)
-    move_cursor(306, 306)
+    move_cursor(211, 352)
     time.sleep(0.5)
-    move_cursor(596, 439)
+    move_cursor(481, 349)
     time.sleep(1)
-    click(613, 444)
+    click(469, 460)
     time.sleep(0.5)
-    click(323, 234)
+    click(273, 296)
     pyautogui.press("right")
     for i in range(9):
         pyautogui.press("left")
@@ -166,4 +163,4 @@ def travel_to_island() -> None:
         pyautogui.press(f"{str(island_num.get())[1]}")
 
     time.sleep(0.5)
-    click(384, 948)
+    click(309, 872)

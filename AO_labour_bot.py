@@ -4,10 +4,10 @@ import pyautogui
 
 from const import island_num
 from mouse_events.movement import (
-    load_from_morgana_chest,
     travel_to_island,
     walk_to_labours,
     put_items_to_chest,
+    load_from_morgana_chest_by_coords,
 )
 
 
@@ -62,7 +62,7 @@ class LaborManagerGUI:
         time.sleep(3)
         travel_to_island()
         time.sleep(7)
-        load_from_morgana_chest()
+        load_from_morgana_chest_by_coords()
 
         selected_islands = [key for key, value in values.items() if value]
 
